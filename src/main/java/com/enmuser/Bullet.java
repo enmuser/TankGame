@@ -1,10 +1,9 @@
 package com.enmuser;
 
-import com.enmuser.abstractfactory.BaseBullet;
 
 import java.awt.*;
 
-public class Bullet extends BaseBullet {
+public class Bullet{
 
     private int x;
     private int y;
@@ -62,7 +61,6 @@ public class Bullet extends BaseBullet {
         this.group = group;
     }
 
-    @Override
     public void paint(Graphics g){
         if(!isLive){
             tankFrame.bullets.remove(this);
@@ -112,7 +110,6 @@ public class Bullet extends BaseBullet {
     }
 
 
-    @Override
     public void collideWith(Tank tank) {
         if(this.group == tank.getGroup()) return;
         if(rectangle.intersects(tank.rectangle)){
@@ -120,8 +117,7 @@ public class Bullet extends BaseBullet {
             tank.die();
             int explodeX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int explodeY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            //tankFrame.explodes.add(new Explode(explodeX,explodeY,tankFrame));
-            tankFrame.explodes.add(tankFrame.gameFactory.createExplode(explodeX,explodeY,tankFrame));
+            tankFrame.explodes.add(new Explode(explodeX,explodeY,tankFrame));
         }
     }
 

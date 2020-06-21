@@ -1,10 +1,9 @@
 package com.enmuser;
 
-import com.enmuser.abstractfactory.BaseExplode;
 
 import java.awt.*;
 
-public class Explode extends BaseExplode {
+public class Explode{
 
     private int x;
 
@@ -39,7 +38,6 @@ public class Explode extends BaseExplode {
         this.y = y;
     }
 
-    @Override
     public void paint(Graphics g){
         g.drawImage(LoadResource.explodes[step++],x,y,null);
         if (step >= LoadResource.explodes.length) tankFrame.explodes.remove(this);

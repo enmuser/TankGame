@@ -1,13 +1,6 @@
 package com.enmuser;
 
 
-import com.enmuser.abstractfactory.BaseBullet;
-import com.enmuser.abstractfactory.BaseExplode;
-import com.enmuser.abstractfactory.DefaultFactory;
-import com.enmuser.abstractfactory.GameFactory;
-import com.enmuser.abstractfactory.specifyfactory.RectangleFactory;
-import com.enmuser.strategy.DefaultFireStrategy;
-import com.enmuser.strategy.FourDirectionFireStrategy;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -21,15 +14,10 @@ public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200,200,Direction.DOWN,this,Group.GOOD,false);
 
-    public List<BaseBullet> bullets = new ArrayList<>();
+    public List<Bullet> bullets = new ArrayList<>();
     public List<Tank> enemyTanks = new ArrayList<>();
-    //Bullet bullet = new Bullet(210,210,Direction.DOWN);
-    //Explode explode = new Explode(300,300,this);
-    public List<BaseExplode> explodes = new ArrayList<>();
+    public List<Explode> explodes = new ArrayList<>();
 
-    //初始化组件工厂，工厂模式的应用
-    public GameFactory gameFactory = DefaultFactory.getInstance();
-//    public GameFactory gameFactory = RectangleFactory.getInstance();
     public static final int GAME_WIDTH = 1024, GAME_HEIGHT = 650;
 
     public TankFrame() throws HeadlessException {

@@ -34,8 +34,7 @@ public class FourDirectionFireStrategy implements FireStrategy {
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
-           // new Bullet(bulletX,bulletY,direction1,tankFrame,group);
-            tankFrame.gameFactory.createBullet(bulletX,bulletY,direction1,group,tankFrame);
+            new Bullet(bulletX,bulletY,direction1,tankFrame,group);
         }
 
 

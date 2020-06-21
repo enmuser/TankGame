@@ -28,20 +28,16 @@ public class DefaultFireStrategy implements FireStrategy {
         TankFrame tankFrame = tank.getTankFrame();
         switch (direction){
             case LEFT:
-                tankFrame.gameFactory.createBullet(bulletX,bulletY+4,direction,group,tankFrame);
-                //new Bullet(bulletX,bulletY+4,direction,tankFrame,group);
+                new Bullet(bulletX,bulletY+4,direction,tankFrame,group);
                 break;
             case UP:
-                tankFrame.gameFactory.createBullet(bulletX,bulletY,direction,group,tankFrame);
-                //new Bullet(bulletX,bulletY,direction,tankFrame,group);
+                new Bullet(bulletX,bulletY,direction,tankFrame,group);
                 break;
             case RIGHT:
-                tankFrame.gameFactory.createBullet(bulletX,bulletY+4,direction,group,tankFrame);
-                //new Bullet(bulletX,bulletY+4,direction,tankFrame,group);
+                new Bullet(bulletX,bulletY+4,direction,tankFrame,group);
                 break;
             case DOWN:
-                tankFrame.gameFactory.createBullet(bulletX,bulletY,direction,group,tankFrame);
-                //new Bullet(bulletX,bulletY,direction,tankFrame,group);
+                new Bullet(bulletX,bulletY,direction,tankFrame,group);
                 break;
         }
     }
