@@ -1,6 +1,7 @@
 package com.enmuser.strategy;
 
 import com.enmuser.*;
+import com.enmuser.facade.GameModel;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,17 +25,17 @@ public class FourDirectionFireStrategy implements FireStrategy {
         int bulletY = tank.getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         Direction direction = tank.getDirection();
         Group group = tank.getGroup();
-        TankFrame tankFrame = tank.getTankFrame();
+        GameModel gameModel = tank.getGameModel();;
         Direction[] values = Direction.values();
         for (Direction direction1: values){
             tank.setDirection(direction1);
-            tank.paint(tankFrame.getGraphics());
+//            tank.paint(tankFrame.getGraphics());
 //            try {
 //                TimeUnit.MILLISECONDS.sleep(100);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
-            new Bullet(bulletX,bulletY,direction1,tankFrame,group);
+            new Bullet(bulletX,bulletY,direction1,gameModel,group);
         }
 
 

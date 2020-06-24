@@ -1,6 +1,8 @@
 package com.enmuser;
 
 
+import com.enmuser.facade.GameModel;
+
 import java.awt.*;
 
 public class Explode{
@@ -9,16 +11,15 @@ public class Explode{
 
     private int y;
 
-    private TankFrame tankFrame;
-
+    private GameModel gameModel;
     public static int WIDTH = LoadResource.explodes[0].getWidth();
     public static int HEIGHT = LoadResource.explodes[0].getHeight();
 
     private int step = 0;
-    public Explode(int x, int y, TankFrame tankFrame) {
+    public Explode(int x, int y, GameModel gameModel) {
         this.x = x;
         this.y = y;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
         new Thread(()->new Audio("audio/explode.wav").play()).start();
     }
 
@@ -40,6 +41,6 @@ public class Explode{
 
     public void paint(Graphics g){
         g.drawImage(LoadResource.explodes[step++],x,y,null);
-        if (step >= LoadResource.explodes.length) tankFrame.explodes.remove(this);
+        if (step >= LoadResource.explodes.length) gameModel.explodes.remove(this);
     }
 }

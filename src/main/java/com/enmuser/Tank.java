@@ -1,5 +1,6 @@
 package com.enmuser;
 
+import com.enmuser.facade.GameModel;
 import com.enmuser.strategy.DefaultFireStrategy;
 import com.enmuser.strategy.FireStrategy;
 
@@ -7,45 +8,29 @@ import java.awt.*;
 import java.util.Random;
 
 public class Tank {
-
-  private int x;
-  private int y;
-  public static final int WIDTH = LoadResource.goodTankD.getWidth();
-  public static final int HEIGHT = LoadResource.goodTankD.getHeight();
-  private static final int SPEED = 15;
-  private Direction direction = Direction.DOWN;
-  private TankFrame tankFrame;
-  private Group group;
-  private boolean isMoving = true;
-  private boolean isLive = true;
-  private Random random = new Random();
-  public Rectangle rectangle = new Rectangle();
+    private GameModel gameModel;
+    private int x;
+    private int y;
+    public static final int WIDTH = LoadResource.goodTankD.getWidth();
+    public static final int HEIGHT = LoadResource.goodTankD.getHeight();
+    private static final int SPEED = 15;
+    private Direction direction = Direction.DOWN;
+    private Group group;
+    private boolean isMoving = true;
+    private boolean isLive = true;
+    private Random random = new Random();
+    public Rectangle rectangle = new Rectangle();
     public Tank(int x, int y, Direction direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;
     }
 
-    public Tank(int x, int y, Direction direction, TankFrame tankFrame) {
+    public Tank(int x, int y, Direction direction, GameModel gameModel, Group group, boolean isMoving) {
         this.x = x;
         this.y = y;
         this.direction = direction;
-        this.tankFrame = tankFrame;
-    }
-
-    public Tank(int x, int y, Direction direction, TankFrame tankFrame, Group group) {
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
-        this.tankFrame = tankFrame;
-        this.group = group;
-    }
-
-    public Tank(int x, int y, Direction direction, TankFrame tankFrame, Group group, boolean isMoving) {
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
         this.group = group;
         this.isMoving = isMoving;
         rectangle.x = this.x;
@@ -54,12 +39,12 @@ public class Tank {
         rectangle.height = HEIGHT;
     }
 
-    public TankFrame getTankFrame() {
-        return tankFrame;
+    public GameModel getGameModel() {
+        return gameModel;
     }
 
-    public void setTankFrame(TankFrame tankFrame) {
-        this.tankFrame = tankFrame;
+    public void setGameModel(GameModel gameModel) {
+        this.gameModel = gameModel;
     }
 
     public int getX() {
@@ -109,7 +94,7 @@ public class Tank {
 //        g.fillRect(x,y,30,30);
 //        g.setColor(color);
         if(!isLive){
-            tankFrame.enemyTanks.remove(this);
+            gameModel.enemyTanks.remove(this);
             return;
         }
         switch (direction){

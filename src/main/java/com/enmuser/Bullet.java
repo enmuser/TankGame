@@ -1,6 +1,8 @@
 package com.enmuser;
 
 
+import com.enmuser.facade.GameModel;
+
 import java.awt.*;
 
 public class Bullet{
@@ -11,36 +13,23 @@ public class Bullet{
     public static final int HEIGHT = LoadResource.bulletD.getHeight();
     private static final int SPEED = 20;
     private Direction direction;
-    private TankFrame tankFrame;
+    private GameModel gameModel;
     private Group group;
     private boolean isLive = true;
 
     Rectangle rectangle = new Rectangle();
 
-    public Bullet(int x, int y, Direction direction) {
+    public Bullet(int x, int y, Direction direction, GameModel gameModel, Group group) {
         this.x = x;
         this.y = y;
         this.direction = direction;
-    }
-
-    public Bullet(int x, int y, Direction direction, TankFrame tankFrame) {
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
-        this.tankFrame = tankFrame;
-    }
-
-    public Bullet(int x, int y, Direction direction, TankFrame tankFrame, Group group) {
-        this.x = x;
-        this.y = y;
-        this.direction = direction;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
         this.group = group;
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
-        tankFrame.bullets.add(this);
+        gameModel.bullets.add(this);
 
     }
 
@@ -63,7 +52,7 @@ public class Bullet{
 
     public void paint(Graphics g){
         if(!isLive){
-            tankFrame.bullets.remove(this);
+            gameModel.bullets.remove(this);
             return;
         }
 //        Color color = g.getColor();
@@ -117,7 +106,7 @@ public class Bullet{
             tank.die();
             int explodeX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int explodeY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            tankFrame.explodes.add(new Explode(explodeX,explodeY,tankFrame));
+            gameModel.explodes.add(new Explode(explodeX,explodeY,gameModel));
         }
     }
 

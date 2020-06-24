@@ -2,6 +2,8 @@ package com.enmuser;
 
 
 
+import com.enmuser.facade.GameModel;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -12,11 +14,7 @@ import java.util.List;
 
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200,200,Direction.DOWN,this,Group.GOOD,false);
-
-    public List<Bullet> bullets = new ArrayList<>();
-    public List<Tank> enemyTanks = new ArrayList<>();
-    public List<Explode> explodes = new ArrayList<>();
+    GameModel gameModel = new GameModel();
 
     public static final int GAME_WIDTH = 1024, GAME_HEIGHT = 650;
 
@@ -63,29 +61,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("当前子弹的数量:"+bullets.size(),10,60);
-        g.drawString("当前敌人的数量:"+enemyTanks.size(),10,80);
-        g.drawString("当前爆炸的数量:" + explodes.size(), 10, 100);
-        g.setColor(color);
-        myTank.paint(g);
-        for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).paint(g);
-        }
-
-        for (int i = 0; i < enemyTanks.size();i++){
-            enemyTanks.get(i).paint(g);
-        }
-
-        for(int i = 0; i < explodes.size(); i++){
-            explodes.get(i).paint(g);
-        }
-        for (int i = 0; i < bullets.size(); i++){
-            for (int j = 0; j < enemyTanks.size(); j++){
-                bullets.get(i).collideWith(enemyTanks.get(j));
-            }
-        }
+          gameModel.paint(g);
 //        explode.paint(g);
     }
 
@@ -120,11 +96,11 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_SPACE:
                     //myTank.fire(DefaultFireStrategy.getInstance());
-                    myTank.fire(TankUtils.getSpecifiedFireStrategy("DefaultStrategy"));
+                    gameModel.getMainTank().fire(TankUtils.getSpecifiedFireStrategy("DefaultStrategy"));
                     break;
                 case KeyEvent.VK_Q:
                     //myTank.fire(FourDirectionFireStrategy.getInstance());
-                    myTank.fire(TankUtils.getSpecifiedFireStrategy("FourDirectionFireStrategy"));
+                    gameModel.getMainTank().fire(TankUtils.getSpecifiedFireStrategy("FourDirectionFireStrategy"));
                     break;
                 default:break;
             }
@@ -155,6 +131,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDirection() {
+            Tank myTank = gameModel.getMainTank();
             if(!bL && !bU && !bR && !bD){
                 myTank.setMoving(false);
             }else {

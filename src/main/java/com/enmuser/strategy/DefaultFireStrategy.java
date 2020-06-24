@@ -1,6 +1,7 @@
 package com.enmuser.strategy;
 
 import com.enmuser.*;
+import com.enmuser.facade.GameModel;
 
 /**
  * 单例
@@ -25,19 +26,19 @@ public class DefaultFireStrategy implements FireStrategy {
         int bulletY = tank.getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         Direction direction = tank.getDirection();
         Group group = tank.getGroup();
-        TankFrame tankFrame = tank.getTankFrame();
+        GameModel gameModel = tank.getGameModel();
         switch (direction){
             case LEFT:
-                new Bullet(bulletX,bulletY+4,direction,tankFrame,group);
+                new Bullet(bulletX,bulletY+4,direction,gameModel,group);
                 break;
             case UP:
-                new Bullet(bulletX,bulletY,direction,tankFrame,group);
+                new Bullet(bulletX,bulletY,direction,gameModel,group);
                 break;
             case RIGHT:
-                new Bullet(bulletX,bulletY+4,direction,tankFrame,group);
+                new Bullet(bulletX,bulletY+4,direction,gameModel,group);
                 break;
             case DOWN:
-                new Bullet(bulletX,bulletY,direction,tankFrame,group);
+                new Bullet(bulletX,bulletY,direction,gameModel,group);
                 break;
         }
     }
