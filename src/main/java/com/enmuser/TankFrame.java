@@ -14,8 +14,6 @@ import java.util.List;
 
 public class TankFrame extends Frame {
 
-    GameModel gameModel = new GameModel(this);
-
     public static final int GAME_WIDTH = 1024, GAME_HEIGHT = 650;
 
     public TankFrame() throws HeadlessException {
@@ -61,7 +59,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-          gameModel.paint(g);
+        GameModel.getInstance().paint(g);
 //        explode.paint(g);
     }
 
@@ -96,11 +94,11 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_SPACE:
                     //myTank.fire(DefaultFireStrategy.getInstance());
-                    gameModel.getMainTank().fire(TankUtils.getSpecifiedFireStrategy("DefaultStrategy"));
+                    GameModel.getInstance().getMainTank().fire(TankUtils.getSpecifiedFireStrategy("DefaultStrategy"));
                     break;
                 case KeyEvent.VK_Q:
                     //myTank.fire(FourDirectionFireStrategy.getInstance());
-                    gameModel.getMainTank().fire(TankUtils.getSpecifiedFireStrategy("FourDirectionFireStrategy"));
+                    GameModel.getInstance().getMainTank().fire(TankUtils.getSpecifiedFireStrategy("FourDirectionFireStrategy"));
                     break;
                 default:break;
             }
@@ -131,7 +129,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDirection() {
-            Tank myTank = gameModel.getMainTank();
+            Tank myTank = GameModel.getInstance().getMainTank();
             if(!bL && !bU && !bR && !bD){
                 myTank.setMoving(false);
             }else {

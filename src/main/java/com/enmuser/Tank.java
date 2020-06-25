@@ -9,7 +9,6 @@ import java.awt.*;
 import java.util.Random;
 
 public class Tank extends GameObject {
-    private GameModel gameModel;
     private int x;
     private int y;
     private int prex;
@@ -29,28 +28,21 @@ public class Tank extends GameObject {
         this.direction = direction;
     }
 
-    public Tank(int x, int y, Direction direction, GameModel gameModel, Group group, boolean isMoving) {
+    public Tank(int x, int y, Direction direction,Group group, boolean isMoving) {
         this.x = x;
         this.y = y;
         this.prex = x;
         this.prex = y;
         this.direction = direction;
-        this.gameModel = gameModel;
         this.group = group;
         this.isMoving = isMoving;
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
+        GameModel.getInstance().addObject(this);
     }
 
-    public GameModel getGameModel() {
-        return gameModel;
-    }
-
-    public void setGameModel(GameModel gameModel) {
-        this.gameModel = gameModel;
-    }
 
     public Rectangle getRectangle() {
         return rectangle;
@@ -123,7 +115,7 @@ public class Tank extends GameObject {
 //        g.fillRect(x,y,30,30);
 //        g.setColor(color);
         if(!isLive){
-            gameModel.removeObject(this);
+            GameModel.getInstance().removeObject(this);
             return;
         }
         switch (direction){
@@ -243,19 +235,24 @@ public class Tank extends GameObject {
         isMoving = false;
     }
 
+    public void backStep(){
+        this.x = this.prex;
+        this.y = this.prey;
+    }
+
     public Direction changDirection(Direction direction){
         if(direction.equals(Direction.UP)){
-            return Direction.DOWN;
+            return direction = Direction.DOWN;
         }
         if (direction.equals(Direction.DOWN)){
-            return  Direction.UP;
+            return direction = Direction.UP;
         }
         if (direction.equals(Direction.LEFT)){
-            return  Direction.RIGHT;
+            return direction = Direction.RIGHT;
         }
         if (direction.equals(Direction.RIGHT)){
-            return Direction.LEFT;
+            return  direction = Direction.LEFT;
         }
-        return Direction.DOWN;
+        return direction = Direction.DOWN;
     }
 }

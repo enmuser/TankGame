@@ -11,7 +11,6 @@ public class Explode extends GameObject {
     private int x;
     private int y;
 
-    private GameModel gameModel;
     public static int WIDTH = LoadResource.explodes[0].getWidth();
     public static int HEIGHT = LoadResource.explodes[0].getHeight();
 
@@ -19,7 +18,6 @@ public class Explode extends GameObject {
     public Explode(int x, int y, GameModel gameModel) {
         this.x = x;
         this.y = y;
-        this.gameModel = gameModel;
         new Thread(()->new Audio("audio/explode.wav").play()).start();
     }
 
@@ -41,6 +39,6 @@ public class Explode extends GameObject {
 
     public void paint(Graphics g){
         g.drawImage(LoadResource.explodes[step++],x,y,null);
-        if (step >= LoadResource.explodes.length) gameModel.removeObject(this);
+        if (step >= LoadResource.explodes.length) GameModel.getInstance().removeObject(this);
     }
 }

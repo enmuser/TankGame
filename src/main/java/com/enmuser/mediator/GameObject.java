@@ -9,9 +9,9 @@ import java.awt.*;
  */
 public abstract class GameObject {
 
-    private int x;
+    protected int x;
 
-    private int y;
+    protected int y;
 
     public abstract void paint(Graphics g);
 }

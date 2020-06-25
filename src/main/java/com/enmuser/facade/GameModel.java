@@ -18,21 +18,37 @@ import java.util.List;
  */
 public class GameModel {
 
-    Tank myTank = new Tank(200,200, Direction.DOWN,this, Group.GOOD,false);
+    private static final GameModel GAME_MODEL  = new GameModel();
 
-//    public List<Bullet> bullets = new ArrayList<>();
-//    public List<Tank> enemyTanks = new ArrayList<>();
-//    public List<Explode> explodes = new ArrayList<>();
+    static {
+        GAME_MODEL.initialize();
+    }
+
+    Tank myTank;
+    private void initialize() {
+        myTank = new Tank(200,200, Direction.DOWN,Group.GOOD,false);
+        this.tankFrame = tankFrame;
+        int initEnemyNums = Integer.parseInt(TankProperties.getProperty("enemy_init_nums"));
+        for (int i = 0; i < initEnemyNums; i++){
+            new Tank(i*100+100,100,Direction.DOWN,Group.BAD,true);
+        }
+
+        // 初始化墙
+        addObject(new Wall(150, 150, 200, 50));
+        addObject(new Wall(550, 150, 200, 50));
+        addObject(new Wall(300, 300, 50, 200));
+        addObject(new Wall(550, 300, 50, 200));
+    }
+
+    public static GameModel getInstance(){
+        return GAME_MODEL;
+    }
 
     ColliderChain colliderChain = new ColliderChain();
     List<GameObject> gameObjects = new ArrayList<>();
     private TankFrame tankFrame;
-    public GameModel(TankFrame tankFrame) {
-        this.tankFrame = tankFrame;
-        int initEnemyNums = Integer.parseInt(TankProperties.getProperty("enemy_init_nums"));
-        for (int i = 0; i < initEnemyNums; i++){
-            addObject(new Tank(i*100+100,100,Direction.DOWN,this,Group.BAD,true));
-        }
+    private GameModel() {
+
     }
 
     public void addObject(GameObject object){
@@ -58,7 +74,7 @@ public class GameModel {
 //        g.drawString("当前敌人的数量:"+enemyTanks.size(),10,80);
 //        g.drawString("当前爆炸的数量:" + explodes.size(), 10, 100);
         g.setColor(color);
-        myTank.paint(g);
+//        myTank.paint(g);
 
         for (int i = 0; i < gameObjects.size(); i++) {
             gameObjects.get(i).paint(g);

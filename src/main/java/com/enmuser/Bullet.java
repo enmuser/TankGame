@@ -14,32 +14,22 @@ public class Bullet extends GameObject {
     public static final int HEIGHT = LoadResource.bulletD.getHeight();
     private static final int SPEED = 20;
     private Direction direction;
-    private GameModel gameModel;
     private Group group;
     private boolean isLive = true;
 
     Rectangle rectangle = new Rectangle();
 
-    public Bullet(int x, int y, Direction direction, GameModel gameModel, Group group) {
+    public Bullet(int x, int y, Direction direction,Group group) {
         this.x = x;
         this.y = y;
         this.direction = direction;
-        this.gameModel = gameModel;
         this.group = group;
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
-        gameModel.addObject(this);
+        GameModel.getInstance().addObject(this);
 
-    }
-
-    public GameModel getGameModel() {
-        return gameModel;
-    }
-
-    public void setGameModel(GameModel gameModel) {
-        this.gameModel = gameModel;
     }
 
     public Rectangle getRectangle() {
@@ -69,7 +59,7 @@ public class Bullet extends GameObject {
 
     public void paint(Graphics g){
         if(!isLive){
-            gameModel.removeObject(this);
+            GameModel.getInstance().removeObject(this);
             return;
         }
 //        Color color = g.getColor();

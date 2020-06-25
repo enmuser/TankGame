@@ -26,19 +26,18 @@ public class DefaultFireStrategy implements FireStrategy {
         int bulletY = tank.getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         Direction direction = tank.getDirection();
         Group group = tank.getGroup();
-        GameModel gameModel = tank.getGameModel();
         switch (direction){
             case LEFT:
-                new Bullet(bulletX,bulletY+4,direction,gameModel,group);
+                new Bullet(bulletX,bulletY+4,direction,group);
                 break;
             case UP:
-                new Bullet(bulletX,bulletY,direction,gameModel,group);
+                new Bullet(bulletX,bulletY,direction,group);
                 break;
             case RIGHT:
-                new Bullet(bulletX,bulletY+4,direction,gameModel,group);
+                new Bullet(bulletX,bulletY+4,direction,group);
                 break;
             case DOWN:
-                new Bullet(bulletX,bulletY,direction,gameModel,group);
+                new Bullet(bulletX,bulletY,direction,group);
                 break;
         }
     }

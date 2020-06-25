@@ -25,17 +25,16 @@ public class FourDirectionFireStrategy implements FireStrategy {
         int bulletY = tank.getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         Direction direction = tank.getDirection();
         Group group = tank.getGroup();
-        GameModel gameModel = tank.getGameModel();;
         Direction[] values = Direction.values();
         for (Direction direction1: values){
             tank.setDirection(direction1);
-            tank.paint(gameModel.getTankFrame().getGraphics());
+            tank.paint(GameModel.getInstance().getTankFrame().getGraphics());
 //            try {
 //                TimeUnit.MILLISECONDS.sleep(100);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
-            new Bullet(bulletX,bulletY,direction1,gameModel,group);
+            new Bullet(bulletX,bulletY,direction1,group);
         }
 
 
