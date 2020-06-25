@@ -13,7 +13,7 @@ public class Main {
 
       while (true){
           try {
-              TimeUnit.MILLISECONDS.sleep(1000);
+              TimeUnit.MILLISECONDS.sleep(100);
           } catch (InterruptedException e) {
               e.printStackTrace();
           }

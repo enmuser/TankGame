@@ -94,7 +94,9 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_SPACE:
                     //myTank.fire(DefaultFireStrategy.getInstance());
-                    GameModel.getInstance().getMainTank().fire(TankUtils.getSpecifiedFireStrategy("DefaultStrategy"));
+                    //改用观察者模式
+                    //GameModel.getInstance().getMainTank().fire(TankUtils.getSpecifiedFireStrategy("DefaultStrategy"));
+                    GameModel.getInstance().getMainTank().handleFireKey();
                     break;
                 case KeyEvent.VK_Q:
                     //myTank.fire(FourDirectionFireStrategy.getInstance());

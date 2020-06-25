@@ -2,10 +2,16 @@ package com.enmuser;
 
 import com.enmuser.facade.GameModel;
 import com.enmuser.mediator.GameObject;
+import com.enmuser.observer.TankFireEvent;
+import com.enmuser.observer.TankFireHandler;
+import com.enmuser.observer.TankFireObserver;
 import com.enmuser.strategy.DefaultFireStrategy;
 import com.enmuser.strategy.FireStrategy;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Tank extends GameObject {
@@ -246,5 +252,14 @@ public class Tank extends GameObject {
             return  direction = Direction.LEFT;
         }
         return direction = Direction.DOWN;
+    }
+    //为了实现Observer模式，新增
+    private List<TankFireObserver> fireObserverList = Arrays.asList(new TankFireHandler());
+
+    public void handleFireKey(){
+        TankFireEvent fireEvent = new TankFireEvent(this);
+        for(TankFireObserver fireObserver : fireObserverList){
+            fireObserver.actionOnFire(fireEvent);
+        }
     }
 }
