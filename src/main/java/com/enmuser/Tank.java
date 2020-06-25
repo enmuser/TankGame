@@ -9,8 +9,6 @@ import java.awt.*;
 import java.util.Random;
 
 public class Tank extends GameObject {
-    private int x;
-    private int y;
     private int prex;
     private int prey;
     public static final int WIDTH = LoadResource.goodTankD.getWidth();
@@ -68,22 +66,6 @@ public class Tank extends GameObject {
         this.prey = prey;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public Direction getDirection() {
         return direction;
     }
@@ -133,6 +115,16 @@ public class Tank extends GameObject {
                 break;
         }
         moving();
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     private void moving() {

@@ -34,10 +34,10 @@ public class LoadResource {
             badTankL = ImageUtil.rotateImage(badTankU, -90);
             badTankR = ImageUtil.rotateImage(badTankU, 90);
             badTankD = ImageUtil.rotateImage(badTankU, 180);
-            bulletL = ImageIO.read(LoadResource.class.getClassLoader().getResourceAsStream("images/bulletL.gif"));
-            bulletU = ImageIO.read(LoadResource.class.getClassLoader().getResourceAsStream("images/bulletU.gif"));
-            bulletR = ImageIO.read(LoadResource.class.getClassLoader().getResourceAsStream("images/bulletR.gif"));
-            bulletD = ImageIO.read(LoadResource.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
+            bulletU = ImageIO.read(LoadResource.class.getClassLoader().getResourceAsStream("images/bulletU.png"));
+            bulletL = ImageUtil.rotateImage(bulletU, -90);
+            bulletR = ImageUtil.rotateImage(bulletU, 90);
+            bulletD = ImageUtil.rotateImage(bulletU, 180);
             for (int i = 0; i < 16; i++) {
                 explodes[i] = ImageIO.read(LoadResource.class.getClassLoader().getResourceAsStream("images/e"+(i+1)+".gif"));
             }
