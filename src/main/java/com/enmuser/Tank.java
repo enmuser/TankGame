@@ -1,16 +1,19 @@
 package com.enmuser;
 
 import com.enmuser.facade.GameModel;
+import com.enmuser.mediator.GameObject;
 import com.enmuser.strategy.DefaultFireStrategy;
 import com.enmuser.strategy.FireStrategy;
 
 import java.awt.*;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends GameObject {
     private GameModel gameModel;
     private int x;
     private int y;
+    private int prex;
+    private int prey;
     public static final int WIDTH = LoadResource.goodTankD.getWidth();
     public static final int HEIGHT = LoadResource.goodTankD.getHeight();
     private static final int SPEED = 15;
@@ -29,6 +32,8 @@ public class Tank {
     public Tank(int x, int y, Direction direction, GameModel gameModel, Group group, boolean isMoving) {
         this.x = x;
         this.y = y;
+        this.prex = x;
+        this.prex = y;
         this.direction = direction;
         this.gameModel = gameModel;
         this.group = group;
@@ -45,6 +50,30 @@ public class Tank {
 
     public void setGameModel(GameModel gameModel) {
         this.gameModel = gameModel;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
+
+    public int getPrex() {
+        return prex;
+    }
+
+    public void setPrex(int prex) {
+        this.prex = prex;
+    }
+
+    public int getPrey() {
+        return prey;
+    }
+
+    public void setPrey(int prey) {
+        this.prey = prey;
     }
 
     public int getX() {
@@ -94,7 +123,7 @@ public class Tank {
 //        g.fillRect(x,y,30,30);
 //        g.setColor(color);
         if(!isLive){
-            gameModel.enemyTanks.remove(this);
+            gameModel.removeObject(this);
             return;
         }
         switch (direction){
@@ -117,6 +146,8 @@ public class Tank {
     private void moving() {
         if(!isMoving) return;
 
+        this.prex = this.x;
+        this.prey = this.y;
         switch (direction){
             case LEFT:
                 x -=SPEED;
@@ -206,5 +237,25 @@ public class Tank {
 
     public void die() {
         isLive = false;
+    }
+
+    public void stop(){
+        isMoving = false;
+    }
+
+    public Direction changDirection(Direction direction){
+        if(direction.equals(Direction.UP)){
+            return Direction.DOWN;
+        }
+        if (direction.equals(Direction.DOWN)){
+            return  Direction.UP;
+        }
+        if (direction.equals(Direction.LEFT)){
+            return  Direction.RIGHT;
+        }
+        if (direction.equals(Direction.RIGHT)){
+            return Direction.LEFT;
+        }
+        return Direction.DOWN;
     }
 }

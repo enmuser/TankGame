@@ -29,7 +29,7 @@ public class FourDirectionFireStrategy implements FireStrategy {
         Direction[] values = Direction.values();
         for (Direction direction1: values){
             tank.setDirection(direction1);
-//            tank.paint(tankFrame.getGraphics());
+            tank.paint(gameModel.getTankFrame().getGraphics());
 //            try {
 //                TimeUnit.MILLISECONDS.sleep(100);
 //            } catch (InterruptedException e) {

@@ -2,10 +2,11 @@ package com.enmuser;
 
 
 import com.enmuser.facade.GameModel;
+import com.enmuser.mediator.GameObject;
 
 import java.awt.*;
 
-public class Bullet{
+public class Bullet extends GameObject {
 
     private int x;
     private int y;
@@ -29,8 +30,24 @@ public class Bullet{
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
-        gameModel.bullets.add(this);
+        gameModel.addObject(this);
 
+    }
+
+    public GameModel getGameModel() {
+        return gameModel;
+    }
+
+    public void setGameModel(GameModel gameModel) {
+        this.gameModel = gameModel;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
     }
 
     public boolean isLive() {
@@ -52,7 +69,7 @@ public class Bullet{
 
     public void paint(Graphics g){
         if(!isLive){
-            gameModel.bullets.remove(this);
+            gameModel.removeObject(this);
             return;
         }
 //        Color color = g.getColor();
@@ -96,18 +113,6 @@ public class Bullet{
         rectangle.y = this.y;
 
         if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) setLive(false);
-    }
-
-
-    public void collideWith(Tank tank) {
-        if(this.group == tank.getGroup()) return;
-        if(rectangle.intersects(tank.rectangle)){
-            this.die();
-            tank.die();
-            int explodeX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-            int explodeY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            gameModel.explodes.add(new Explode(explodeX,explodeY,gameModel));
-        }
     }
 
     public void die() {

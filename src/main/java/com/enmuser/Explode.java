@@ -2,13 +2,13 @@ package com.enmuser;
 
 
 import com.enmuser.facade.GameModel;
+import com.enmuser.mediator.GameObject;
 
 import java.awt.*;
 
-public class Explode{
+public class Explode extends GameObject {
 
     private int x;
-
     private int y;
 
     private GameModel gameModel;
@@ -41,6 +41,6 @@ public class Explode{
 
     public void paint(Graphics g){
         g.drawImage(LoadResource.explodes[step++],x,y,null);
-        if (step >= LoadResource.explodes.length) gameModel.explodes.remove(this);
+        if (step >= LoadResource.explodes.length) gameModel.removeObject(this);
     }
 }

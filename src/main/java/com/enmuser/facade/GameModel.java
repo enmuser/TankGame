@@ -1,6 +1,11 @@
 package com.enmuser.facade;
 
 import com.enmuser.*;
+import com.enmuser.chain_of_responsible.BulletTankCollider;
+import com.enmuser.chain_of_responsible.Collider;
+import com.enmuser.chain_of_responsible.ColliderChain;
+import com.enmuser.chain_of_responsible.TankTankCollider;
+import com.enmuser.mediator.GameObject;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,40 +20,53 @@ public class GameModel {
 
     Tank myTank = new Tank(200,200, Direction.DOWN,this, Group.GOOD,false);
 
-    public java.util.List<Bullet> bullets = new ArrayList<>();
-    public java.util.List<Tank> enemyTanks = new ArrayList<>();
-    public List<Explode> explodes = new ArrayList<>();
+//    public List<Bullet> bullets = new ArrayList<>();
+//    public List<Tank> enemyTanks = new ArrayList<>();
+//    public List<Explode> explodes = new ArrayList<>();
 
-    public GameModel() {
+    ColliderChain colliderChain = new ColliderChain();
+    List<GameObject> gameObjects = new ArrayList<>();
+    private TankFrame tankFrame;
+    public GameModel(TankFrame tankFrame) {
+        this.tankFrame = tankFrame;
         int initEnemyNums = Integer.parseInt(TankProperties.getProperty("enemy_init_nums"));
-
         for (int i = 0; i < initEnemyNums; i++){
-            enemyTanks.add(new Tank(i*100+100,100,Direction.DOWN,this,Group.BAD,true));
+            addObject(new Tank(i*100+100,100,Direction.DOWN,this,Group.BAD,true));
         }
+    }
+
+    public void addObject(GameObject object){
+        gameObjects.add(object);
+    }
+
+    public void removeObject(GameObject object){
+        gameObjects.remove(object);
+    }
+
+    public TankFrame getTankFrame() {
+        return tankFrame;
+    }
+
+    public void setTankFrame(TankFrame tankFrame) {
+        this.tankFrame = tankFrame;
     }
 
     public void paint(Graphics g){
         Color color = g.getColor();
         g.setColor(Color.WHITE);
-        g.drawString("当前子弹的数量:"+bullets.size(),10,60);
-        g.drawString("当前敌人的数量:"+enemyTanks.size(),10,80);
-        g.drawString("当前爆炸的数量:" + explodes.size(), 10, 100);
+//        g.drawString("当前子弹的数量:"+bullets.size(),10,60);
+//        g.drawString("当前敌人的数量:"+enemyTanks.size(),10,80);
+//        g.drawString("当前爆炸的数量:" + explodes.size(), 10, 100);
         g.setColor(color);
         myTank.paint(g);
-        for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).paint(g);
+
+        for (int i = 0; i < gameObjects.size(); i++) {
+            gameObjects.get(i).paint(g);
         }
 
-        for (int i = 0; i < enemyTanks.size();i++){
-            enemyTanks.get(i).paint(g);
-        }
-
-        for(int i = 0; i < explodes.size(); i++){
-            explodes.get(i).paint(g);
-        }
-        for (int i = 0; i < bullets.size(); i++){
-            for (int j = 0; j < enemyTanks.size(); j++){
-                bullets.get(i).collideWith(enemyTanks.get(j));
+        for (int i = 0; i < gameObjects.size(); i++){
+            for (int j = i+1; j < gameObjects.size(); j++){
+                colliderChain.collide(gameObjects.get(i),gameObjects.get(j));
             }
         }
     }
