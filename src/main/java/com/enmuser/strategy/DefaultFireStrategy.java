@@ -28,35 +28,25 @@ public class DefaultFireStrategy implements FireStrategy {
         int bulletY = tank.getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         Direction direction = tank.getDirection();
         Group group = tank.getGroup();
-//        switch (direction){
-//            case LEFT:
-//                new Bullet(bulletX,bulletY+4,direction,group);
-//                break;
-//            case UP:
-//                new Bullet(bulletX,bulletY,direction,group);
-//                break;
-//            case RIGHT:
-//                new Bullet(bulletX,bulletY+4,direction,group);
-//                break;
-//            case DOWN:
-//                new Bullet(bulletX,bulletY,direction,group);
-//                break;
-//        }
+        switch (direction){
+            case LEFT:
+                new Bullet(bulletX,bulletY+4,direction,group);
+                break;
+            case UP:
+                new Bullet(bulletX,bulletY,direction,group);
+                break;
+            case RIGHT:
+                new Bullet(bulletX,bulletY+4,direction,group);
+                break;
+            case DOWN:
+                new Bullet(bulletX,bulletY,direction,group);
+                break;
+        }
 
-        GameModel.getInstance().addObject(new RectangleDecorator(new TailDecorator(new Bullet(bulletX,bulletY,direction,group))));
-//        switch (direction){
-//            case LEFT:
-//                GameModel.getInstance().addObject(new RectangleDecorator(new Bullet(bulletX,bulletY+4,direction,group)));
-//                break;
-//            case UP:
-//                new RectangleDecorator(new Bullet(bulletX,bulletY,direction,group));
-//                break;
-//            case RIGHT:
-//                new RectangleDecorator(new Bullet(bulletX,bulletY+4,direction,group));
-//                break;
-//            case DOWN:
-//                new RectangleDecorator(new Bullet(bulletX,bulletY,direction,group));
-//                break;
-//        }
+        /**
+         * 装饰器模式 装饰子弹样式
+         */
+//        GameModel.getInstance().addObject(new RectangleDecorator(new TailDecorator(new Bullet(bulletX,bulletY,direction,group))));
+
     }
 }
